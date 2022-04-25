@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/static/easyui/themes/default/easyui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/easyui/themes/icon.css}">
+<script type="text/javascript" th:src="@{/static/easyui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/easyui/jquery.easyui.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/highcharts/highcharts.js}"></script>
+<script type="text/javascript" th:src="@{/static/highcharts/exporting.js}"></script>
+<script type="text/javascript" th:src="@{/static/highcharts/oldie.js}"></script>
+<script>
+
+    var url;
+
+    function loadData() {
+
+    }
+
+
+    function strtoint(str) {
+        return parseInt(str);
+    }
+    function drawPic() {
+        var selectedRows=$("#dg").datagrid("getSelections");
+        if(selectedRows.length!=1){
+            $.messager.alert("系统提示","请选择一条要预测的数据！");
+            return;
+        }
+        var row=selectedRows[0];
+        var int_st1 = strtoint(row.st1)
+        var int_st2 = strtoint(row.st2)
+        var int_st3 = strtoint(row.st3)
+        var int_st4 = strtoint(row.st4)
+        var int_st5 = strtoint(row.st5)
+        var int_st6 = strtoint(row.st6)
+        var pre=[int_st1,int_st2,int_st3,int_st4,int_st5,int_st6]
+
+
+        var chart = Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '人员需求预测图'
+            },
+            xAxis: {
+                categories: ['06:00-08:30', '08:30-11:30', '11:30-14:30', '14:30-17:00', '17:00-22:00', '22:00-06:00'],
+                labels: {
+                    // 设置轴标签旋转角度
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '数量（个）'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: '人员数量: <b>{point.y:.1f} 个</b>'
+            },
+            series: [{
+                name: '总人口',
+                data: [3,5,7,7,5,4]
+                ,
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.1f}', // :.1f 为保留 1 位小数
+                    y: 10
+                }
+            }]
+        });
+
+    }
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //含最大值，含最小值
+    }
+
+
+</script>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body style="margin: 1px;" id="body" >
+
+
+<table id="dg" title="航班数量" class="easyui-datagrid "  style="height: 350px;width: 100%;"
+       fitColumns="true" pagination="true" rownumbers="true"
+       url="/airLinePre/all0"  toolbar="#tb">
+    <thead>
+    <tr>
+        <th field="cb" checkbox="true" align="center"></th>
+
+        <th field="riqi" width="100" align="center" >日期</th>
+
+        <th field="st1" width="100" align="center">06:00-08:30</th>
+        <th field="st2" width="100" align="center">08:00-11:30</th>
+        <th field="st3" width="100"  align="center">11:30-14:30</th>
+        <th field="st4" width="100" align="center">14:30-17:00</th>
+        <th field="st5" width="100" align="center">17:00-22:00</th>
+        <th field="st6" width="100" align="center" >22:00-06:00</th>
+        <th field="status"  hidden="true" width="100" align="center" >预测值</th>
+
+    </tr>
+    </thead>
+    <tr th:each="item:${airLineList}">
+        <td>2</td>
+
+        <td th:text="${item.riqi}">3</td>
+        <td th:text="${item.st1}">3</td>
+        <td th:text="${item.st2}">3</td>
+        <td th:text="${item.st3}">3</td>
+        <td th:text="${item.st4}">3</td>
+        <td th:text="${item.st5}">3</td>
+        <td th:text="${item.st6}">3</td>
+        <td th:text="${item.status}">3</td>
+
+    </tr>
+
+</table>
+
+<div id="tb">
+    <div>
+        <a href="javascript:loadData()" class="easyui-linkbutton" iconCls="icon-sum" plain="true">加载数据</a>
+        <a href="javascript:drawPic()" class="easyui-linkbutton" iconCls="icon-sum" plain="true">预测</a>
+    </div>
+</div>
+
+
+
+<div id="container" style="min-width:400px;height:400px">
+
+
+</div>
+</body>
+</html>

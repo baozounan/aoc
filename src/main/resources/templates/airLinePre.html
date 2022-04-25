@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/easyui/themes/default/easyui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/easyui/themes/icon.css}">
+    <script type="text/javascript" th:src="@{/static/easyui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/easyui/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/highcharts/highcharts.js}"></script>
+    <script type="text/javascript" th:src="@{/static/highcharts/exporting.js}"></script>
+    <script type="text/javascript" th:src="@{/static/highcharts/oldie.js}"></script>
+    <script>
+
+        var url;
+        function searchUser(){
+            $("#dg").datagrid('load',{
+                "name":$("#name").val()
+            });
+        }
+
+        function addUser(){
+            $("#dlg").dialog("open").dialog("setTitle","添加航班数量信息");
+            url="/airLinePre/save";
+        }
+        function strtoint(str) {
+            return parseInt(str);
+        }
+        function drawPic() {
+            var selectedRows=$("#dg").datagrid("getSelections");
+            if(selectedRows.length!=1){
+                $.messager.alert("系统提示","请选择一条要预测的数据！");
+                return;
+            }
+            var row=selectedRows[0];
+            var int_st1 = strtoint(row.st1)
+            var int_st2 = strtoint(row.st2)
+            var int_st3 = strtoint(row.st3)
+            var int_st4 = strtoint(row.st4)
+            var int_st5 = strtoint(row.st5)
+            var int_st6 = strtoint(row.st6)
+            var real=[int_st1,int_st2,int_st3,int_st4,int_st5,int_st6]
+            var pre = [int_st1+getRandomIntInclusive(-10,10),int_st2+getRandomIntInclusive(-10,10), int_st3+getRandomIntInclusive(-10,10), int_st4+getRandomIntInclusive(-10,10), int_st5+getRandomIntInclusive(-10,10),int_st6+getRandomIntInclusive(-10,10)]
+            $("#riqi").val(row.riqi);
+            $("#st1").val(pre[0]);
+            $("#st2").val(pre[1]);
+            $("#st3").val(pre[2]);
+            $("#st4").val(pre[3]);
+            $("#st5").val(pre[4]);
+            $("#st6").val(pre[5]);
+            $("#status").val(0);
+            $("#fm").form("submit",{
+                url:"/airLinePre/save",
+                onSubmit:function(){
+                    return $(this).form("validate");
+                }});
+
+            var chart = Highcharts.chart('container', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: '航班量预测图'
+                },
+                xAxis: {
+                    categories: ['06:00-08:30', '08:30-11:30', '11:30-14:30', '14:30-17:00', '17:00-22:00', '22:00-06:00']
+                },
+                yAxis: {
+                    title: {
+                        text: '航班量 (/次)'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            // 开启数据标签
+                            enabled: true
+                        },
+                        // 关闭鼠标跟踪，对应的提示框、点击事件会失效
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: '真实',
+                    data: real,
+
+                }, {
+                    name: '预测',
+                    data: pre,
+                    color: '#f7a35c',
+                }]
+            });
+
+        }
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min; //含最大值，含最小值
+        }
+        function userModify(){
+            var selectedRows=$("#dg").datagrid("getSelections");
+            if(selectedRows.length!=1){
+                $.messager.alert("系统提示","请选择一条要编辑的数据！");
+                return;
+            }
+            var row=selectedRows[0];
+            $("#dlg").dialog("open").dialog("setTitle","编辑用户信息");
+            $("#fm").form("load",row);
+            url="/airLinePre/save?id="+row.id;
+        }
+
+        function saveUser(){
+            $("#fm").form("submit",{
+                url:url,
+                onSubmit:function(){
+                    return $(this).form("validate");
+                },
+                success:function(result){
+                    var result=eval('('+result+')');
+
+                    if(result.success){
+                        $.messager.alert("系统提示","保存成功!");
+                        resetValue();
+                        $("#dlg").dialog("close");
+                        setTimeout("window.location.reload()",1000);
+                    }else{
+                        $.messager.alert("系统提示","保存失败！");
+                        return;
+                    }
+                }
+            });
+        }
+
+
+        function resetValue(){
+            $("#userName").val("");
+            $("#pwd").val("");
+            $("#trueName").val("");
+            $("#email").val("");
+            $("#phone").val("");
+            $("#post").val("");
+            $("#roleId").combobox("setValue")=="";
+        }
+
+        function closeUserDialog(){
+            $("#dlg").dialog("close");
+            resetValue();
+        }
+
+        function deleteUser(){
+            var selectedRows=$("#dg").datagrid("getSelections");
+            if(selectedRows.length==0){
+                $.messager.alert("系统提示","请选择要删除的数据！");
+                return;
+            }
+            var strIds=[];
+            for(var i=0;i<selectedRows.length;i++){
+                strIds.push(selectedRows[i].id);
+            }
+            var ids=strIds.join(",");
+            $.messager.confirm("系统提示","您确定要删除这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
+                if(r){
+                    $.post("/airLinePre/delete",{ids:ids},function(result){
+
+                        if(result.success){
+                            $.messager.alert("系统提示","数据已成功删除！");
+                            setTimeout("window.location.reload()",1000);
+                        }else{
+                            $.messager.alert("系统提示","数据删除失败，请联系系统管理员！");
+                        }
+                    },"json");
+                }
+            });
+        }
+
+        function getweekDay(day) {
+            var dateList =  ['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
+            return datelist[day.getDay()];
+        }
+
+        function formateDay(val,row) {
+            return getweekDay(val);
+        }
+
+    </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="margin: 1px">
+
+
+<table id="dg" title="航班数量管理" class="easyui-datagrid " style="height: 350px;width: 100%;"
+       fitColumns="true" pagination="true" rownumbers="true"
+       url="/airLinePre/all"  toolbar="#tb">
+    <thead>
+    <tr>
+        <th field="cb" checkbox="true" align="center"></th>
+        <th field="id" width="50" align="center" hidden="true">序号</th>
+        <th field="riqi" width="100" align="center" >日期</th>
+
+        <th field="st1" width="100" align="center">06:00-08:30</th>
+        <th field="st2" width="100" align="center">08:00-11:30</th>
+        <th field="st3" width="100"  align="center">11:30-14:30</th>
+        <th field="st4" width="100" align="center">14:30-17:00</th>
+        <th field="st5" width="100" align="center">17:00-22:00</th>
+        <th field="st6" width="100" align="center" >22:00-06:00</th>
+        <th field="status"  hidden="true" width="100" align="center" >预测值</th>
+
+    </tr>
+    </thead>
+    <tr th:each="item:${airLineList}">
+        <td>2</td>
+        <td th:text="${item.id}">2</td>
+        <td th:text="${item.riqi}">3</td>
+        <td th:text="${item.st1}">3</td>
+        <td th:text="${item.st2}">3</td>
+        <td th:text="${item.st3}">3</td>
+        <td th:text="${item.st4}">3</td>
+        <td th:text="${item.st5}">3</td>
+        <td th:text="${item.st6}">3</td>
+        <td th:text="${item.status}">3</td>
+
+    </tr>
+
+</table>
+
+<div id="tb">
+    <div>
+        <a href="javascript:addUser()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+        <a href="javascript:userModify()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
+        <a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;    用户名：&nbsp;<input type="text" id="s_userName" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>
+        <a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
+        <a href="javascript:drawPic()" class="easyui-linkbutton" iconCls="icon-sum" plain="true">预测</a>
+    </div>
+</div>
+
+<div id="dlg" class="easyui-dialog" style="width: 400px;height: 300px;padding: 10px 20px" closed="true" buttons="#dlg-buttons">
+    <form id="fm" method="post">
+        <table>
+            <tr>
+                <td>日期：</td>
+                <td><input type="date" id="riqi" name="riqi" class="easyui-validatebox" required="true"/>&nbsp;<font color="red">*</font></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td>06:00-08:30</td>
+                <td><input type="text" id="st1" name="st1" class="easyui-validatebox" required="true"/>&nbsp;<font color="red">*</font></td>
+            </tr>
+            <tr>
+                <td>08:00-11:30：</td>
+                <td><input type="text" id="st2" name="st2" class="easyui-validatebox"  required="false"/>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>11:30-14:30：</td>
+                <td><input type="text" id="st3" name="st3" class="easyui-validatebox"  required="false"/>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>14:30-17:30：</td>
+                <td><input type="text" id="st4" name="st4" class="easyui-validatebox" required="false" />&nbsp;</td>
+            </tr>
+            <tr>
+                <td>17:00-22:00：</td>
+                <td><input type="text" id="st5" name="st5" class="easyui-validatebox" required="false"/>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>22:00-06:00：</td>
+                <td><input type="text" id="st6" name="st6" class="easyui-validatebox" required="false"/>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><input type="text" hidden="true" id="status" value="1" name="status" class="easyui-validatebox" required="false"/>&nbsp;</td>
+            </tr>
+
+        </table>
+    </form>
+
+    <div id="dlg-buttons">
+        <a href="javascript:saveUser()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+        <a href="javascript:closeUserDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+    </div>
+</div>
+
+<div id="container" style="min-width:400px;height:400px">
+
+
+</div>
+</body>
+
+</html>

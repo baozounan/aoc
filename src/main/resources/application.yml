@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: '@Pan874974'+
+    url: jdbc:mysql://39.106.78.112:3306/aoc?useUnicode=true&characterEncoding=utf8
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+  mvc:
+    static-path-pattern: /static/**
+server:
+  port: 8088
+

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xj.aoc.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.xj.aoc.entity.Person">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="jobNumber" jdbcType="VARCHAR" property="jobNumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="edu" jdbcType="VARCHAR" property="edu" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="english" jdbcType="VARCHAR" property="english" />
+    <result column="qua" jdbcType="VARCHAR" property="qua" />
+    <result column="ability" jdbcType="VARCHAR" property="ability" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, jobNumber, name, edu, major, sex, english, qua, ability
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from person
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+<select id="countAll" resultType="java.lang.Integer">
+    select count(*) from person
+  </select>
+<select id="selectAllPerson" resultType="com.xj.aoc.entity.Person">
+    select * from person
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from person
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xj.aoc.entity.Person">
+    insert into person (id, jobNumber, name, 
+      edu, major, sex, english, 
+      qua, ability)
+    values (#{id,jdbcType=INTEGER}, #{jobNumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{edu,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{english,jdbcType=VARCHAR}, 
+      #{qua,jdbcType=VARCHAR}, #{ability,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.aoc.entity.Person">
+    insert into person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jobNumber != null">
+        jobNumber,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="edu != null">
+        edu,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="english != null">
+        english,
+      </if>
+      <if test="qua != null">
+        qua,
+      </if>
+      <if test="ability != null">
+        ability,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobNumber != null">
+        #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="edu != null">
+        #{edu,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="english != null">
+        #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="qua != null">
+        #{qua,jdbcType=VARCHAR},
+      </if>
+      <if test="ability != null">
+        #{ability,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.aoc.entity.Person">
+    update person
+    <set>
+      <if test="jobNumber != null">
+        jobNumber = #{jobNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="edu != null">
+        edu = #{edu,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="english != null">
+        english = #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="qua != null">
+        qua = #{qua,jdbcType=VARCHAR},
+      </if>
+      <if test="ability != null">
+        ability = #{ability,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.aoc.entity.Person">
+    update person
+    set jobNumber = #{jobNumber,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      edu = #{edu,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      english = #{english,jdbcType=VARCHAR},
+      qua = #{qua,jdbcType=VARCHAR},
+      ability = #{ability,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

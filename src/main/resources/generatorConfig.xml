@@ -1,0 +1,168 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE generatorConfiguration-->
+        <!--PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"-->
+        <!--"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">-->
+
+<!--<generatorConfiguration>-->
+    <!--&lt;!&ndash;导入属性配置&ndash;&gt;-->
+    <!--<properties resource="generator.properties"/>-->
+
+    <!--&lt;!&ndash;指定特定数据库的jdbc驱动jar包的位置&ndash;&gt;-->
+    <!--<classPathEntry location="${jdbc.driverLocation}"/>-->
+
+    <!--<context id="default" targetRuntime="MyBatis3">-->
+        <!--&lt;!&ndash;        默认文件创建人&ndash;&gt;-->
+        <!--<property name="createBy" value="plf"/>-->
+        <!--&lt;!&ndash;        lombok代替get/set方法&ndash;&gt;-->
+        <!--&lt;!&ndash;        <plugin type="org.mybatis.generator.custom.plugins.LombokPlugin"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;        实现序列化接口&ndash;&gt;-->
+        <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
+        <!--&lt;!&ndash;        生成service和serviceImpl&ndash;&gt;-->
+        <!--&lt;!&ndash;        <plugin type="org.mybatis.generator.custom.plugins.ServicePlugin"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash; optional，旨在创建class时，对注释进行控制 &ndash;&gt;-->
+        <!--<commentGenerator>-->
+            <!--<property name="suppressDate" value="true"/>-->
+            <!--<property name="suppressAllComments" value="true"/>-->
+        <!--</commentGenerator>-->
+
+        <!--&lt;!&ndash;jdbc的数据库连接 &ndash;&gt;-->
+        <!--<jdbcConnection-->
+                <!--driverClass="${jdbc.driverClass}"-->
+                <!--connectionURL="${jdbc.connectionURL}"-->
+                <!--userId="${jdbc.userId}"-->
+                <!--password="${jdbc.password}">-->
+            <!--<property name="nullCatalogMeansCurrent" value="true"/>-->
+        <!--</jdbcConnection>-->
+
+
+        <!--&lt;!&ndash; 非必需，类型处理器，在数据库类型和java类型之间的转换控制&ndash;&gt;-->
+        <!--<javaTypeResolver>-->
+            <!--<property name="forceBigDecimals" value="false"/>-->
+        <!--</javaTypeResolver>-->
+
+
+        <!--&lt;!&ndash;        生成java实体类&ndash;&gt;-->
+        <!--<javaModelGenerator targetPackage="com.xj.aoc.entity"-->
+                            <!--targetProject="src/main/java">-->
+
+            <!--&lt;!&ndash; 是否允许子包，即targetPackage.schemaName.tableName &ndash;&gt;-->
+            <!--<property name="enableSubPackages" value="false"/>-->
+            <!--&lt;!&ndash; 是否对model添加 构造函数 &ndash;&gt;-->
+            <!--&lt;!&ndash;            <property name="constructorBased" value="true"/>&ndash;&gt;-->
+            <!--&lt;!&ndash; 是否对类CHAR类型的列的数据进行trim操作 &ndash;&gt;-->
+            <!--<property name="trimStrings" value="true"/>-->
+            <!--&lt;!&ndash; 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 &ndash;&gt;-->
+            <!--&lt;!&ndash;            <property name="immutable" value="false"/>&ndash;&gt;-->
+        <!--</javaModelGenerator>-->
+
+        <!--&lt;!&ndash;        生成mapper接口文件&ndash;&gt;-->
+        <!--<sqlMapGenerator targetPackage="com.xj.aoc.dao"-->
+                         <!--targetProject="src/main/java">-->
+            <!--<property name="enableSubPackages" value="false"/>-->
+        <!--</sqlMapGenerator>-->
+
+        <!--&lt;!&ndash;生成mapper.xml文件&ndash;&gt;-->
+        <!--<javaClientGenerator targetPackage="com.xj.aoc.mapper"-->
+                             <!--targetProject="src/main/java" type="XMLMAPPER">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</javaClientGenerator>-->
+
+        <!--&lt;!&ndash;tableName:指定了表名-->
+            <!--domainObjectName:指定了实体类的名称-->
+        <!--&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="person" domainObjectName="Person"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--<table tableName="airline" domainObjectName="AirLine"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;-->
+            <!--<property name= "useActualColumnNames" value= "true"/>-->
+        <!--</table>-->
+        <!--&lt;!&ndash;<table tableName="airline" domainObjectName="Airline"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="amtoairline" domainObjectName="AmToAirline"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="amtodesign" domainObjectName="AmToDesign"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="amtofix" domainObjectName="AmToFix"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="amtoproducer" domainObjectName="AmToProducer"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="aviationmaterial" domainObjectName="AviationMaterial"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="design" domainObjectName="Design"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="devicecategory" domainObjectName="DeviceCategory"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="historyrecord" domainObjectName="HistoryRecord"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="producer" domainObjectName="Producer"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+        <!--&lt;!&ndash;<table tableName="repairfactory" domainObjectName="RepairFactory"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableCountByExample="false" enableUpdateByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;enableDeleteByExample="false" enableSelectByExample="false"&ndash;&gt;-->
+               <!--&lt;!&ndash;selectByExampleQueryId="false">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;区分大小写，与数据库保持一致&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name= "useActualColumnNames" value= "true"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</table>&ndash;&gt;-->
+
+
+    <!--</context>-->
+<!--</generatorConfiguration>-->

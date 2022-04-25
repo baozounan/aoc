@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/easyui/themes/default/easyui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/easyui/themes/icon.css}">
+    <script type="text/javascript" th:src="@{/static/easyui/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/easyui/jquery.easyui.min.js}"></script>
+    <script type="application/javascript">
+        function openTab(text,url,icon){
+            if($("#tabs").tabs("exists",text)){
+                $("#tabs").tabs("select",text);
+                var selTab = $('#tabs').tabs('getSelected');
+                var url = $(selTab.panel('options').content).attr('src');
+                $('#tabs').tabs('update', {
+                    tab: selTab,
+                    options: {
+                        content:createFrame(url)
+                    }
+                })
+            }else{
+
+                var content="<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='"+url+"'></iframe>";
+                $("#tabs").tabs("add",{
+                    title:text,
+                    iconCls:icon,
+                    content:content,
+                    closable:true,
+                });
+            }
+        }
+
+        function createFrame(url){
+            return '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%"></iframe>';
+        }
+
+        var url;
+
+    </script>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="easyui-layout">
+
+<!-- 北 -->
+<div region="north" style="height:80px; background-color: #E0ECFF" >
+    <table style="padding:5px" width="100%">
+        <tr>
+            <td width="50%" style="padding-left: 100px">
+                <h1 style="font-family: 方正姚体">机场AOC人员智能排班系统</h1>
+            </td>
+            <td valign="bottom" align="center" width="50%">
+                <font size="3" color="red"><strong>欢迎使用</strong> </font>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- 中 -->
+<div region="center" style="z-index: 1">
+    <div class="easyui-tabs" fit="true" border="false" id="tabs">
+        <div title="首页" data-options="iconCls:'icon-home'">
+            <div align="center" style="padding-top: 150px">
+                <font size="10" color="red">欢迎使用</font>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 西 -->
+<div region="west" style="width: 250px" title="导航菜单" split="true">
+        <div class="easyui-accordion" data-options="fit:true,border:false">
+            <div title="数据管理"  data-options="iconCls:'icon-bkgl'" style="padding:10px;">
+                <a href="javascript:openTab('排班人员数据管理','/person/all','icon-writeblog')" class="easyui-linkbutton"  data-options="plain:true,iconCls:'icon-writeblog'" style="width: 150px;">排班人员数据管理</a>
+                <a href="javascript:openTab('航班量预测','/airLinePre/all','icon-bkgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bkgl'" style="width: 150px;">航班量预测</a>
+                <a href="javascript:openTab('人员需求预测','/airLinePre/all0','icon-writeblog')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-writeblog'" style="width: 150px;">人员需求预测</a>
+                <a href="javascript:openTab('人员排班表','/person/schedule','icon-writeblog')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-writeblog'" style="width: 150px;">人员排班表</a>
+            </div>
+
+
+
+
+        </div>
+</div>
+
+
+<!-- 南 -->
+<div region="south" style="height: 30px;padding: 5px;background-color: #E0ECFF" align="center">
+
+</div>
+
+
+<div id="dlg" class="easyui-dialog" style="width: 400px;height: 200px;padding: 10px 20px" closed="true" buttons="#dlg-buttons">
+    <form id="fm" method="post">
+        <table>
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" id="userName" name="userName" readonly="readonly" value="${currentUser.userName }" style="width: 200px"/></td>
+            </tr>
+            <tr>
+                <td>原密码：</td>
+                <td><input type="password" id="oldPassword"  class="easyui-validatebox" required="true" style="width: 200px"/></td>
+            </tr>
+            <tr>
+                <td>新密码：</td>
+                <td><input type="password" id="newPassword" name="pwd" class="easyui-validatebox" required="true" style="width: 200px"/></td>
+            </tr>
+            <tr>
+                <td>确认新密码：</td>
+                <td><input type="password" id="newPassword2" class="easyui-validatebox" required="true" style="width: 200px"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="dlg-buttons">
+    <a href="javascript:modifyPassword()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+    <a href="javascript:closePasswordModifyDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+</div>
+
+
+<div id="dlg-info" class="easyui-dialog" style="width: 400px;height: 250px;padding: 10px 20px" closed="true" buttons="#dlg-info-buttons">
+    <table cellspacing="8px">
+        <tr>
+            <td>作  者：</td>
+            <td>潘龙飞</td>
+        </tr>
+        <tr>
+            <td>学  校：</td>
+            <td>攀枝花学院</td>
+        </tr>
+        <tr>
+            <td>制作时间：</td>
+            <td>2019年4月18日10:33:35</td>
+        </tr>
+        <tr>
+            <td>邮箱：</td>
+            <td>plf_email@163.com</td>
+        </tr>
+
+    </table>
+</div>
+<div id="dlg-info-buttons">
+    <a href="javascript:closeHelpSystem()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+</div>
+</body>
+</html>

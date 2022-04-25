@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Class-Path: jul-to-slf4j-1.7.25.jar spring-boot-starter-logging-2.0.4.
+ RELEASE.jar thymeleaf-3.0.9.RELEASE.jar spring-boot-autoconfigure-2.0
+ .4.RELEASE.jar log4j-api-2.10.0.jar jackson-module-parameter-names-2.
+ 9.6.jar classmate-1.3.4.jar mysql-connector-java-8.0.25.jar mybatis-p
+ lus-extension-3.3.1.tmp.jar spring-core-5.0.8.RELEASE.jar jackson-dat
+ abind-2.9.6.jar mybatis-3.5.9.jar json-lib-2.4-jdk15.jar spring-boot-
+ starter-json-2.0.4.RELEASE.jar commons-beanutils-1.8.0.jar spring-web
+ mvc-5.0.8.RELEASE.jar spring-boot-starter-jdbc-2.0.4.RELEASE.jar jack
+ son-annotations-2.9.0.jar protobuf-java-3.11.4.jar spring-boot-starte
+ r-tomcat-2.0.4.RELEASE.jar tomcat-embed-core-8.5.32.jar spring-boot-s
+ tarter-thymeleaf-2.0.4.RELEASE.jar slf4j-api-1.7.25.jar spring-boot-s
+ tarter-web-2.0.4.RELEASE.jar mybatis-plus-annotation-3.3.1.tmp.jar lo
+ mbok-1.16.22.jar mybatis-plus-core-3.3.1.tmp.jar validation-api-2.0.1
+ .Final.jar spring-web-5.0.8.RELEASE.jar mybatis-spring-boot-autoconfi
+ gure-2.2.2.jar jackson-datatype-jsr310-2.9.6.jar tomcat-embed-websock
+ et-8.5.32.jar HikariCP-2.7.9.jar mybatis-plus-3.3.1.tmp.jar jboss-log
+ ging-3.3.2.Final.jar mybatis-spring-2.0.7.jar snakeyaml-1.19.jar log4
+ j-to-slf4j-2.10.0.jar hibernate-validator-6.0.11.Final.jar commons-la
+ ng-2.5.jar spring-boot-2.0.4.RELEASE.jar mybatis-plus-boot-starter-3.
+ 3.1.tmp.jar spring-jcl-5.0.8.RELEASE.jar commons-logging-1.1.1.jar co
+ mmons-collections-3.2.1.jar jackson-core-2.9.6.jar logback-core-1.2.3
+ .jar jackson-datatype-jdk8-2.9.6.jar spring-boot-devtools-2.0.4.RELEA
+ SE.jar spring-aop-5.0.8.RELEASE.jar thymeleaf-spring5-3.0.9.RELEASE.j
+ ar unbescape-1.1.5.RELEASE.jar attoparser-2.0.4.RELEASE.jar javax.ann
+ otation-api-1.3.2.jar ezmorph-1.0.6.jar spring-boot-starter-2.0.4.REL
+ EASE.jar logback-classic-1.2.3.jar spring-expression-5.0.8.RELEASE.ja
+ r spring-context-5.0.8.RELEASE.jar thymeleaf-extras-java8time-3.0.1.R
+ ELEASE.jar spring-jdbc-5.0.8.RELEASE.jar spring-tx-5.0.8.RELEASE.jar 
+ jsqlparser-3.1.jar mybatis-spring-boot-starter-2.2.2.jar tomcat-embed
+ -el-8.5.32.jar spring-beans-5.0.8.RELEASE.jar
+Main-Class: com.xj.aoc.AocApplication
+
